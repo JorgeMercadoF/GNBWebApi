@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.421
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GNBWebApi", "GNBWebApi\GNBWebApi.csproj", "{B15DC25A-A16E-4638-AFAC-640C5C025F7D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GNBWebApi.Tests", "GNBWebApi.Tests\GNBWebApi.Tests.csproj", "{6BC4E5C1-0B85-478B-9CAA-53E9A32974A4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B15DC25A-A16E-4638-AFAC-640C5C025F7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B15DC25A-A16E-4638-AFAC-640C5C025F7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B15DC25A-A16E-4638-AFAC-640C5C025F7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B15DC25A-A16E-4638-AFAC-640C5C025F7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BC4E5C1-0B85-478B-9CAA-53E9A32974A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BC4E5C1-0B85-478B-9CAA-53E9A32974A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BC4E5C1-0B85-478B-9CAA-53E9A32974A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BC4E5C1-0B85-478B-9CAA-53E9A32974A4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1F7BD82D-7D27-460A-9937-91AC17EA33C2}
+	EndGlobalSection
+EndGlobal
