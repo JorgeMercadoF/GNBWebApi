@@ -10,21 +10,28 @@ namespace GNBWebApi.Controllers
 {
     public class DivisasController : ApiController
     {
-        public DivisasRepository db = new DivisasRepository();
-        public List<Divisas> Divisas = new List<Divisas>();
+        private DivisasRepository db = new DivisasRepository();
+        private List<Divisas> Divisas = new List<Divisas>();
+        private List<Divisas> Conversion = new List<Divisas>();
+
+        public DivisasController()
+        {
+            Divisas = db.GetJsonUrlDivisas();
+            if (Divisas == null)
+            {
+                Divisas = db.GetJsonTextDivisas();
+            }
+        }
 
         // GET: api/Divisas
-        public async Task<JsonResult<List<Divisas>>> Get()
+        public JsonResult<List<Divisas>> Get()
         {
-            Divisas = await db.JsonDivisas();
             return Json(Divisas);
         }
 
         //GET: api/Divisas/5
-        public async Task<JsonResult<List<Divisas>>> Get(string from, string to)
+        public JsonResult<List<Divisas>> Get(string from, string to)
         {
-            Divisas = await db.JsonDivisas();
-            List<Divisas> selec = new List<Divisas>();
             var divisasFromTo = (from x in Divisas
                            where x.From.Equals(@from) && x.To.Equals(to)
                            select x).ToList();
@@ -37,7 +44,7 @@ namespace GNBWebApi.Controllers
                 var divisasFrom = (from x in Divisas
                                    where x.From.Equals(@from)
                                    select x).ToList();
-                selec.Clear();
+                Conversion.Clear();
                 foreach (var divisaFrom in divisasFrom)
                 {
                     var divisasTo = (from x in Divisas
@@ -45,13 +52,13 @@ namespace GNBWebApi.Controllers
                                      select x).ToList();
                     if (divisasTo != null && divisasTo.Count() > 0)
                     {
-                        selec.Add(divisaFrom);
-                        selec.AddRange(divisasTo);
+                        Conversion.Add(divisaFrom);
+                        Conversion.AddRange(divisasTo);
                     }
                 }
-                if(selec.Count() > 0)
+                if(Conversion.Count() > 0)
                 {
-                    return Json(selec);
+                    return Json(Conversion);
                 }
                 else
                 {
