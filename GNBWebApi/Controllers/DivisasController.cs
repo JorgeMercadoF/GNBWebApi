@@ -1,39 +1,70 @@
-﻿using System;
+﻿using GNBWebApi.Models;
+using GNBWebApi.Repositorios;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Results;
 
 namespace GNBWebApi.Controllers
 {
     public class DivisasController : ApiController
     {
+        public DivisasRepository db = new DivisasRepository();
+        public List<Divisas> Divisas = new List<Divisas>();
+
         // GET: api/Divisas
-        public IEnumerable<string> Get()
+        public async Task<JsonResult<List<Divisas>>> Get()
         {
-            return new string[] { "value1", "value2" };
+            Divisas = await db.JsonDivisas();
+            return Json(Divisas);
         }
 
-        // GET: api/Divisas/5
-        public string Get(int id)
+        //GET: api/Divisas/5
+        public async Task<JsonResult<List<Divisas>>> Get(string from, string to)
         {
-            return "value";
+            Divisas = await db.JsonDivisas();
+            List<Divisas> selec = new List<Divisas>();
+            var divisasFromTo = (from x in Divisas
+                           where x.From.Equals(@from) && x.To.Equals(to)
+                           select x).ToList();
+            if (divisasFromTo != null && divisasFromTo.Count() > 0)
+            {
+                return Json(divisasFromTo);
+            }
+            else
+            {
+                var divisasFrom = (from x in Divisas
+                                   where x.From.Equals(@from)
+                                   select x).ToList();
+                selec.Clear();
+                foreach (var divisaFrom in divisasFrom)
+                {
+                    var divisasTo = (from x in Divisas
+                                     where x.From.Equals(divisaFrom.To) && x.To.Equals(to)
+                                     select x).ToList();
+                    if (divisasTo != null && divisasTo.Count() > 0)
+                    {
+                        selec.Add(divisaFrom);
+                        selec.AddRange(divisasTo);
+                    }
+                }
+                if(selec.Count() > 0)
+                {
+                    return Json(selec);
+                }
+                else
+                {
+                    return null;
+                }
+            }
         }
 
-        // POST: api/Divisas
-        public void Post([FromBody]string value)
-        {
-        }
+        // GET api/HelloWorld2  
+        //[Route("api/Divisas/Hello2")]
+        //public string GetHello2(string frase){
+        //    return frase;
+        //}
 
-        // PUT: api/Divisas/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE: api/Divisas/5
-        public void Delete(int id)
-        {
-        }
     }
 }
