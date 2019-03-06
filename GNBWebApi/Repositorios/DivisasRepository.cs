@@ -18,7 +18,7 @@ namespace GNBWebApi.Repositorios
         {
             using (WebClient httpClient = new WebClient())
             {
-                var jsonData = httpClient.DownloadString("http://quiet-stone-2094.herokuapp.com/rates.json");
+                var jsonData = httpClient.DownloadString(url);
                 using (StreamWriter archivo = new StreamWriter(ruta, false))
                 {
                     archivo.Write(jsonData);
