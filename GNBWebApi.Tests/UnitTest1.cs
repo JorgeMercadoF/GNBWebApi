@@ -4,7 +4,6 @@ using GNBWebApi.Repositorios;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 
 namespace GNBWebApi.Tests
@@ -57,10 +56,10 @@ namespace GNBWebApi.Tests
     [TestClass]
     public class GNBWebApi
     {
-        DivisasRepository dbD = new DivisasRepository();
-        TransactionsRepository dbT = new TransactionsRepository();
-        List<Divisas> Divisas = new List<Divisas>();
-        List<Transactions> Transactions = new List<Transactions>();
+        readonly DivisasRepository dbD = new DivisasRepository();
+        readonly TransactionsRepository dbT = new TransactionsRepository();
+        readonly List<Divisas> Divisas = new List<Divisas>();
+        readonly List<Transactions> Transactions = new List<Transactions>();
         GNBWebApiController controller = new GNBWebApiController();
 
         [TestMethod]
@@ -69,12 +68,6 @@ namespace GNBWebApi.Tests
             List<Divisas> divisas = controller.ConversorDivisas("EUR", "AUD");
             decimal rate = divisas.Sum(a => a.Rate);
             Assert.AreEqual(rate, rate, "0.01", "asdasd");
-        }
-
-        [TestMethod]
-        public void GetTransaccionesFiltrar()
-        {
-            
         }
     }
 }
